@@ -36,6 +36,9 @@ async function checkPostBooking(userId: number, roomId: number) {
 
 async function checkPutBooking(userId: number, bookingId: number, roomId: number) {
     const booking = await bookingRepositories.getBookingById(bookingId);
+    if(!booking) {
+        throw {name: "NotFound"}
+    }
     if(booking.userId !== userId) {
         throw {name: "Unauthorized"};
     }
